@@ -1,3 +1,4 @@
+@Login
 Feature: Smoke testing for Login page
 
   Background:
@@ -16,9 +17,9 @@ Feature: Smoke testing for Login page
 
       Examples:
         | username | password       | expectedMessage                        |
-        | kkk      | kkk123         | Medical Consultation                   |
+        | ooo      | ooo123         | Medical Consultation                   |
         | kkk      | kkk1234        | Invalid credentials. Please try again. |
-        |doc1      | doc123         | Status:                                |
+        |ppp       | ppp123          | Status:                                |
 
 
 #  Scenario: Verify navigation from Login to Register page

@@ -4,7 +4,7 @@ Feature: Smoke Test for Patient Dashboard
   Background:
     Given user is on the landing Pages
     When user clicks the login_signup buttons
-    When user enter usernam "kkk" and "kkk123"
+    When user enter usernam "ooo" and "ooo123"
     And clicks the login buttons
     Then the user should see the messages "Medical Consultation"
 
@@ -20,5 +20,5 @@ Feature: Smoke Test for Patient Dashboard
 
    Scenario: Medication Reminder Taken Button
      When user clicks on medication reminder in dashboard and redirect to reminder page
-#     And clicks on Mark as taken button
+     And clicks on Mark as taken button
 #     Then It should be marked as taken

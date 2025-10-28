@@ -78,10 +78,15 @@ public class PatientDashboardSmokeSteps {
         Assert.assertTrue(medicationReminder.verifyReminderPage());
 
     }
-//    @And("clicks on Mark as taken button")
-//    public void clicks_on_Mark_as_taken_button() {
-//        medicationReminder.clickTakenButton();
+    @And("clicks on Mark as taken button")
+    public void clicks_on_Mark_as_taken_button() {
+        medicationReminder.clickTakenButton();
+    }
+//    @Then("It should be marked as taken")
+//    public void check_marked_taken(){
+//        Assert.assertTrue(medicationReminder.isMarked());
 //    }
+
 }
 
 

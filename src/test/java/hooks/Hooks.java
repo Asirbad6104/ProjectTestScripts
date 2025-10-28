@@ -16,6 +16,7 @@ import java.util.Map;
 public class Hooks {
     public static WebDriver driver;
     public static WebDriverWait wait;
+
     @Before
     public void setup(){
         ChromeOptions options = new ChromeOptions();
@@ -42,8 +43,9 @@ public class Hooks {
 
     }
 
-    @After
-    public void tearDown(){
-        driver.quit();
-    }
+//    @After
+//    public void tearDown(){
+//
+//        driver.quit();
+//    }
 }

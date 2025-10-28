@@ -32,7 +32,7 @@ public class LoginPage {
     }
 
     public boolean isOnLandingPage(){
-        WebElement titlee = wait.until(ExpectedConditions.visibilityOfElementLocated(title));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(title));
         return driver.findElement(title).getText().equals("Login");
     }
     public void enterUsername(String username){

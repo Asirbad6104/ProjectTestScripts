@@ -1,7 +1,9 @@
 package pages;
 
+import hooks.Hooks;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
@@ -12,8 +14,8 @@ public class MedicationReminder{
 
     private By Medication_reminder_card = By.xpath("//h3[text()='Medication Reminders']");
     private By reminderDashboardTitle = By.xpath("//h3[contains(normalize-space(),'Medication Schedule')]");
-    private By takenButton = By.cssSelector("button.take-button");
-
+    private By takenButton = By.xpath("//button[@class='take-button']");
+    private By isTaken = By.xpath("//span[@id='taken']");
 
     public MedicationReminder(WebDriver driver) {
         this.driver = driver;
@@ -31,7 +33,17 @@ public class MedicationReminder{
     }
 
     public void clickTakenButton(){
+        wait.until(ExpectedConditions.visibilityOfElementLocated(takenButton));
         driver.findElement(takenButton).click();
     }
+
+//    public boolean isMarked(){
+//        wait.until(ExpectedConditions.visibilityOfElementLocated(isTaken));
+//        String text = driver.findElement(isTaken).getText();
+//        if(text.equals("taken")){
+//            return true;
+//        }
+//        return false;
+//    }
 
 }
