@@ -1,17 +1,20 @@
+// StepDefinitions.DoctorDashboard.java (Already fixed in previous response, ensuring correctness)
 package StepDefinitions;
 
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.*;
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import pages.DoctorDashboardPage;
 import pages.LoginPage;
+import core.util.BasePage;
 
 import java.util.Map;
 
-import static hooks.Hooks.driver;
 
-public class DoctorDashboard {
+public class DoctorDashboard extends  BasePage{
 
     LoginPage loginPage;
     DoctorDashboardPage dPage;
@@ -19,17 +22,22 @@ public class DoctorDashboard {
 
     @Given("the Doctor is logged in and on the Dashboard page")
     public void DoctorLoggingIN() {
-        loginPage = new LoginPage(driver);
+        loginPage = new LoginPage();
+
+        // Explicitly wait for the initial button to be clickable before clicking
+        webWait().until(ExpectedConditions.elementToBeClickable(By.xpath("//a[@href='/auth']")));
         loginPage.click_loginSignUpButton();
+
         loginPage.isOnLandingPage();
         loginPage.login("ppp", "ppp123");
         loginPage.clickLoginButton();
-        Assert.assertTrue(loginPage.verifyDashboard("Status:"));
+
+        Assert.assertTrue("Failed to verify Doctor Dashboard presence after login.", loginPage.verifyDashboard("Status:"));
     }
 
     @When("the Doctor views the first Patient Message")
     public void readFirstRequest() {
-        dPage = new DoctorDashboardPage(driver);
+        dPage = new DoctorDashboardPage();
         WebElement card = dPage.getFirstMessageCard();
         Assert.assertNotNull("Expected at least one patient message to be present.", card);
         messageContent = dPage.getMessageContent(card); // store unique text
@@ -77,18 +85,4 @@ public class DoctorDashboard {
         String actualMessage = dPage.getToastMessage();
         Assert.assertEquals("Expected success toast not found.", expectedMessage, actualMessage);
     }
-
-//    @And("the Patient Message should no longer be visible on the dashboard")
-//    public void the_patient_message_should_no_longer_be_visible() {
-//        boolean isStillVisible = dPage.isMessageCardVisibleByContent(messageContent);
-//        Assert.assertFalse("The responded message is still visible on the dashboard.", isStillVisible);
-//    }
-//
-//    @And("the prescription form should be reset to its initial state")
-//    public void the_prescription_form_should_be_reset() {
-//        Assert.assertTrue("Diagnosis field was not reset.", dPage.isDiagnosisFieldEmpty());
-//
-//    }
-
-
 }

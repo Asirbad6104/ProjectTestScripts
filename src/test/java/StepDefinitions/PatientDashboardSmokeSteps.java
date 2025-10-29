@@ -8,10 +8,6 @@ import pages.MedicationReminder;
 import pages.PatientForm;
 
 
-import static hooks.Hooks.driver;
-
-
-
 public class PatientDashboardSmokeSteps {
 
     LoginPage loginPage;
@@ -20,9 +16,7 @@ public class PatientDashboardSmokeSteps {
 
     @Given("user is on the landing Pages")
     public void user_is_on_the_landing_page() {
-
-        loginPage = new LoginPage(driver);
-
+        loginPage = new LoginPage();
     }
 
     @When("user clicks the login_signup buttons")
@@ -32,7 +26,7 @@ public class PatientDashboardSmokeSteps {
 
     @When("user enter usernam {string} and {string}")
     public void user_enter_username_and(String username, String password) {
-       loginPage.login(username, password);
+        loginPage.login(username, password);
     }
     @And("clicks the login buttons")
     public void clicks_the_login_buttons() {
@@ -47,7 +41,7 @@ public class PatientDashboardSmokeSteps {
 
     @When("user clicks on feature card and redirects to consultation Form")
     public void user_redirects_to_consultation_Form() {
-        patientForm = new PatientForm(driver);
+        patientForm = new PatientForm();
         Assert.assertTrue(patientForm.verifyFormAppeared());
     }
 
@@ -72,7 +66,7 @@ public class PatientDashboardSmokeSteps {
     @When("user clicks on medication reminder in dashboard and redirect to reminder page")
     public void user_clicks_on_medication_reminder_in_dashboard() {
 
-        medicationReminder = new MedicationReminder(driver);
+        medicationReminder = new MedicationReminder();
         medicationReminder.clickOnReminder();
 
         Assert.assertTrue(medicationReminder.verifyReminderPage());
@@ -82,11 +76,4 @@ public class PatientDashboardSmokeSteps {
     public void clicks_on_Mark_as_taken_button() {
         medicationReminder.clickTakenButton();
     }
-//    @Then("It should be marked as taken")
-//    public void check_marked_taken(){
-//        Assert.assertTrue(medicationReminder.isMarked());
-//    }
-
 }
-
-
