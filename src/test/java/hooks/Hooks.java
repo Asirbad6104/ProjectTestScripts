@@ -1,24 +1,33 @@
 package hooks;
 
+import core.util.DriverFactory;
+import core.util.DriverManager;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
+import core.util.Config;
 
-import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * PicoContainer will instantiate this class once per scenario,
+ * making the WebDriver available to all Step Definition classes.
+ */
 public class Hooks {
-    public static WebDriver driver;
-    public static WebDriverWait wait;
 
     @Before
-    public void setup(){
+    public void setup() {
+        RemoteWebDriver driver = DriverFactory.newDriver(Config.browser(), Config.headless());
+        DriverManager.set(driver);
+        DriverManager.get().manage().window().maximize();
+
+        // Navigate to the base URL using Config
+        DriverManager.get().get(Config.baseUrl());
+
         ChromeOptions options = new ChromeOptions();
         Map<String, Object> chromePrefs = new HashMap<>();
 
@@ -33,19 +42,10 @@ public class Hooks {
         options.addArguments("--disable-extensions");
         options.addArguments("--disable-notifications");
 
-        driver = new ChromeDriver(options);
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        driver.get("http://localhost:4200/");
-        driver.manage().window().maximize();
-
-
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@href='/auth']")));
-
     }
 
-//    @After
-//    public void tearDown(){
-//
-//        driver.quit();
-//    }
+    @After
+    public void teardown() {
+        DriverManager.unload();
+    }
 }

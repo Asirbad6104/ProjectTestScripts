@@ -1,18 +1,12 @@
 package pages;
 
-import org.junit.Assert;
+import core.util.BasePage;
+import core.util.DriverManager;
+
 import org.openqa.selenium.*;
-import hooks.Hooks;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import java.time.Duration;
 
-import static hooks.Hooks.driver;
-import static hooks.Hooks.wait;
-
-public class LoginPage {
-
-    WebDriver driver;
+public class LoginPage extends BasePage {
 
     private By login_signup_button = By.xpath("//a[@href='/auth']");
     private By usernameField = By.id("login-username");
@@ -21,60 +15,58 @@ public class LoginPage {
     private By title  = By.xpath("//div[@class='form-title']");
     private By dashboardMsg = By.xpath("//h3[text()='Medical Consultation'] | //strong[text()='Status:']");
 
-    public LoginPage(WebDriver driver) {
-        this.driver = driver;
-        wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+    public LoginPage() {
     }
 
     public void click_loginSignUpButton(){
-        Hooks.wait.until(ExpectedConditions.elementToBeClickable(login_signup_button));
-        driver.findElement(login_signup_button).click();
+        // Ensure the button is clickable before attempting to click
+        click(webWait().until(ExpectedConditions.elementToBeClickable(login_signup_button)));
     }
 
     public boolean isOnLandingPage(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(title));
-        return driver.findElement(title).getText().equals("Login");
+        webWait().until(ExpectedConditions.visibilityOfElementLocated(title));
+        return DriverManager.get().findElement(title).getText().equals("Login");
     }
     public void enterUsername(String username){
-        Hooks.wait.until(ExpectedConditions.elementToBeClickable(usernameField));
-        driver.findElement(usernameField).sendKeys(username);
+        webWait().until(ExpectedConditions.elementToBeClickable(usernameField));
+        DriverManager.get().findElement(usernameField).sendKeys(username);
     }
 
     public void enterPassword(String password){
-        Hooks.wait.until(ExpectedConditions.elementToBeClickable(passwordField));
-        driver.findElement(passwordField).sendKeys(password);
+        webWait().until(ExpectedConditions.elementToBeClickable(passwordField));
+        DriverManager.get().findElement(passwordField).sendKeys(password);
     }
     public void clickLoginButton(){
-        Hooks.wait.until(ExpectedConditions.elementToBeClickable(loginButton));
-        driver.findElement(loginButton).click();
+        click(DriverManager.get().findElement(loginButton));
     }
 
+    // FIX APPLIED HERE: Wait explicitly for the username field to be ready before calling enterUsername
     public void login(String username, String password){
-       Hooks.wait.until(ExpectedConditions.visibilityOfElementLocated(title));
+        webWait().until(ExpectedConditions.visibilityOfElementLocated(title));
+        webWait().until(ExpectedConditions.elementToBeClickable(usernameField)); // Ensures fields are present
         enterUsername(username);
         enterPassword(password);
     }
 
     public boolean verifyDashboard(String expectedMsg){
         if(isAlertPresent()){
-            Alert alert = driver.switchTo().alert();
+            Alert alert = DriverManager.get().switchTo().alert();
             String actualMsg = alert.getText();
             boolean result = actualMsg.contains(expectedMsg);
             alert.accept();
             return result;
         }
 
-        WebElement msg = driver.findElement(dashboardMsg);
+        // Explicitly wait for the dashboard element to be visible
+        WebElement msg = webWait().until(ExpectedConditions.visibilityOfElementLocated(dashboardMsg));
         String actualMessage = msg.getText();
-         return actualMessage.contains(expectedMsg);
-
-
+        return actualMessage.contains(expectedMsg);
     }
 
 
     private boolean isAlertPresent() {
         try {
-            wait.until(ExpectedConditions.alertIsPresent());
+            webWait().until(ExpectedConditions.alertIsPresent());
             return true;
         } catch (TimeoutException e) {
             return false;

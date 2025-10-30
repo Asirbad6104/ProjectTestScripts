@@ -1,24 +1,18 @@
+// pages.PatientForm.java (Already fixed in previous response, ensuring correctness)
 package pages;
 
-import hooks.Hooks;
+import core.util.BasePage;
+import core.util.DriverManager;
+
 import org.openqa.selenium.*;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.support.ui.Select;
-import java.time.Duration;
 
-import static hooks.Hooks.driver;
-import static hooks.Hooks.wait;
+public class PatientForm extends BasePage {
 
-public class PatientForm {
-    WebDriver driver;
-    WebDriverWait wait;
-
-    public PatientForm(WebDriver driver) {
-        this.driver = driver;
-        wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+    public PatientForm() {
     }
+
     private By feature_card_1 = By.xpath("//div[@class='feature-card']");
     private By form_element = By.xpath("//h3[text()='Medical Consultation Form']");
     private By fullname = By.xpath("//input[@placeholder='Enter your full name']");
@@ -30,50 +24,44 @@ public class PatientForm {
     private By title = By.xpath("//h3[text()='Medical Consultation']");
 
     public boolean verifyFormAppeared(){
-        Hooks.wait.until(ExpectedConditions.visibilityOfElementLocated(feature_card_1));
-        driver.findElement(feature_card_1).click();
-        String actualMessage = driver.findElement(form_element).getText();
+        // Wait for the card to be clickable, then click it
+        click(webWait().until(ExpectedConditions.elementToBeClickable(feature_card_1)));
+
+        // Wait for the form element to appear on the new screen
+        webWait().until(ExpectedConditions.visibilityOfElementLocated(form_element));
+
+        String actualMessage = DriverManager.get().findElement(form_element).getText();
         String expectedMessage = "Medical Consultation For";
         return actualMessage.contains(expectedMessage);
     }
+
     public void filling_Form(String fname , String age , String specialist , String level , String Description){
-        driver.findElement(fullname).sendKeys(fname);
+        webWait().until(ExpectedConditions.visibilityOfElementLocated(fullname)).sendKeys(fname);
 
-        driver.findElement(Age).sendKeys(age);
+        DriverManager.get().findElement(Age).sendKeys(age);
 
-        WebElement specialist_type = driver.findElement(doctype);
+        WebElement specialist_type = DriverManager.get().findElement(doctype);
         Select s  = new Select(specialist_type);
         s.selectByVisibleText(specialist);
 
-        WebElement urgency_type = driver.findElement(severoity);
+        WebElement urgency_type = DriverManager.get().findElement(severoity);
         Select s2 = new Select(urgency_type);
         s2.selectByVisibleText(level);
 
-        driver.findElement(description).sendKeys(Description);
-
+        DriverManager.get().findElement(description).sendKeys(Description);
     }
 
     public void sendPrescription(){
-        driver.findElement(sendButton).click();
+        click(DriverManager.get().findElement(sendButton));
     }
 
     public boolean verifySendOrNOt(){
-        wait.until(ExpectedConditions.alertIsPresent());
-        Alert alert = driver.switchTo().alert();
+        webWait().until(ExpectedConditions.alertIsPresent());
+        Alert alert = DriverManager.get().switchTo().alert();
         alert.accept();
-        Hooks.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h3[text()='Medical Consultation']")));
-        String actualMessage = driver.findElement(title).getText();
+        webWait().until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h3[text()='Medical Consultation']")));
+        String actualMessage = DriverManager.get().findElement(title).getText();
         String expectedMessage = "Medical Consultation";
         return actualMessage.contains(expectedMessage);
-    }
-
-
-    private boolean isAlertPresent() {
-        try {
-            wait.until(ExpectedConditions.alertIsPresent());
-            return true;
-        } catch (TimeoutException e) {
-            return false;
-        }
     }
 }
