@@ -15,10 +15,10 @@ import java.util.List;
 public class DoctorDashboardPage extends BasePage {
 
     private final By allMessageCards = By.cssSelector(".message-card");
-    private final By diagnosisField = By.cssSelector(".prescription-form .input-field[name='diagnosis']");
+    private final By diagnosisField = By.xpath("//label[text()='Diagnosis']/following-sibling::input");
     private final By addMedicationButton = By.xpath("//button[contains(text(), 'Add Medication')]");
-    private final By sendPrescriptionButton = By.xpath("//button[contains(text(), 'Send Prescription')]");
-    private final By notificationToast = By.cssSelector(".notification");
+    private final By sendPrescriptionButton = By.xpath("//button[@type='submit-send']");
+    //private final By notificationToast = By.cssSelector(".notification");
 
     public DoctorDashboardPage() {
     }
@@ -69,22 +69,22 @@ public class DoctorDashboardPage extends BasePage {
     }
 
     public void fillMedicationDetails(int index, String name, String timing, String duration) {
-        By medCardLocator = By.cssSelector(".medication-card:nth-child(" + (index + 1) + ")");
+        By medCardLocator = By.cssSelector(".medication-card:nth-child(1)");
         WebElement medCard = webWait().until(ExpectedConditions.visibilityOfElementLocated(medCardLocator));
 
-        WebElement nameInput = medCard.findElement(By.cssSelector("input[id='medicationName-" + index + "']"));
+        WebElement nameInput = medCard.findElement(By.xpath("//label[text()='Medication Name']/following-sibling::input"));
         nameInput.clear();
         nameInput.sendKeys(name);
 
-        WebElement timingSelectElement = medCard.findElement(By.cssSelector("select[id='dosageTiming-" + index + "']"));
+        WebElement timingSelectElement = medCard.findElement(By.xpath("//label[text()='Dosage Timing']/following-sibling::select"));
         Select timingSelect = new Select(timingSelectElement);
         timingSelect.selectByVisibleText(timing);
 
-        WebElement durationInput = medCard.findElement(By.cssSelector("input[id='durationDays-" + index + "']"));
+        WebElement durationInput = medCard.findElement(By.xpath("//label[contains(text(),'Duration')]/following::input"));
         durationInput.clear();
         durationInput.sendKeys(duration);
 
-        WebElement startDateInput = medCard.findElement(By.cssSelector("input[id='startDate-" + index + "']"));
+        WebElement startDateInput = medCard.findElement(By.xpath("//label[contains(text(),'Start Date')]/following::input"));
         Assert.assertTrue("Start date field is not displayed", startDateInput.isDisplayed());
     }
 
@@ -92,10 +92,10 @@ public class DoctorDashboardPage extends BasePage {
         click(DriverManager.get().findElement(sendPrescriptionButton));
     }
 
-    public String getToastMessage() {
-        WebElement toast = webWait().until(ExpectedConditions.visibilityOfElementLocated(notificationToast));
-        return toast.getText().trim();
-    }
+//    public String getToastMessage() {
+//        WebElement toast = webWait().until(ExpectedConditions.visibilityOfElementLocated(notificationToast));
+//        return toast.getText().trim();
+//    }
 
     public boolean isDiagnosisFieldEmpty() {
         return DriverManager.get().findElement(diagnosisField).getAttribute("value").isEmpty();

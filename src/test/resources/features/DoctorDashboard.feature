@@ -1,4 +1,4 @@
-
+ @new
 Feature: Doctor Dashboard Prescription Workflow
 
   Scenario: 1. Successful Prescription Submission for a High Severity Message
