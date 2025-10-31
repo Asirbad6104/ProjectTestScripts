@@ -29,7 +29,7 @@ public class DoctorDashboard extends  BasePage{
         loginPage.click_loginSignUpButton();
 
         loginPage.isOnLandingPage();
-        loginPage.login("ppp", "ppp123");
+        loginPage.login("doctor", "doctor123");
         loginPage.clickLoginButton();
 
         Assert.assertTrue("Failed to verify Doctor Dashboard presence after login.", loginPage.verifyDashboard("Status:"));
@@ -83,6 +83,6 @@ public class DoctorDashboard extends  BasePage{
     @Then("a success message {string} should be displayed")
     public void a_success_message_should_be_displayed(String expectedMessage) {
         //String actualMessage = dPage.getToastMessage();
-       // Assert.assertEquals("Expected success toast not found.", expectedMessage, actualMessage);
+        // Assert.assertEquals("Expected success toast not found.", expectedMessage, actualMessage);
     }
 }

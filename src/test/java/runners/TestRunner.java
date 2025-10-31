@@ -8,10 +8,8 @@ import io.cucumber.junit.CucumberOptions;
 @CucumberOptions(
         features = "src/test/resources/features",
         glue = {"StepDefinitions" , "hooks","core.util","pages","runners"},
-
         plugin = {"pretty", "html:target/cucumber-reports"},
         monochrome = true
 )
 public class TestRunner {
-
 }

@@ -17,7 +17,7 @@ Feature: Smoke testing for Login page
 
       Examples:
         | username | password       | expectedMessage                        |
-        | patient      | patient123         | Medical Consultation                   |
+        | patient123    | patient1234        | Medical Consultation                   |
         | patient     | kkk1234        | Invalid credentials. Please try again. |
         | doctor       | doctor123          | Status:                                |
 

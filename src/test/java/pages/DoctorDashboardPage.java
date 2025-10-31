@@ -14,12 +14,11 @@ import java.util.List;
 
 public class DoctorDashboardPage extends BasePage {
 
+    private final By diagnosisField = By.xpath("//input[@placeholder='Enter patient diagnosis']");
+    private final By addMedicationButton = By.xpath("//button[contains(text(),'Add Medication')]");
+    private final By sendPrescriptionButton = By.xpath("//button[contains(text(),'Send Prescription')]");
+    private final By notificationToast = By.cssSelector(".toast-message");
     private final By allMessageCards = By.cssSelector(".message-card");
-    private final By diagnosisField = By.xpath("//label[text()='Diagnosis']/following-sibling::input");
-    private final By addMedicationButton = By.xpath("//button[contains(text(), 'Add Medication')]");
-    private final By sendPrescriptionButton = By.xpath("//button[@type='submit-send']");
-    //private final By notificationToast = By.cssSelector(".notification");
-
     public DoctorDashboardPage() {
     }
 
@@ -67,24 +66,26 @@ public class DoctorDashboardPage extends BasePage {
     public void addMedication() {
         click(DriverManager.get().findElement(addMedicationButton));
     }
-
+    // 🔹 Fill details for a specific medication card
     public void fillMedicationDetails(int index, String name, String timing, String duration) {
-        By medCardLocator = By.cssSelector(".medication-card:nth-child(1)");
+        // ✅ Fixed XPath (removed extra parenthesis)
+        By medCardLocator = By.xpath("(//div[contains(@class,'medication-card')])[" + (index + 1) + "]");
         WebElement medCard = webWait().until(ExpectedConditions.visibilityOfElementLocated(medCardLocator));
 
-        WebElement nameInput = medCard.findElement(By.xpath("//label[text()='Medication Name']/following-sibling::input"));
+        // ✅ Relative XPath (.// instead of //)
+        WebElement nameInput = medCard.findElement(By.xpath(".//label[contains(text(),'Medication Name')]/following::input[1]"));
         nameInput.clear();
         nameInput.sendKeys(name);
 
-        WebElement timingSelectElement = medCard.findElement(By.xpath("//label[text()='Dosage Timing']/following-sibling::select"));
+        WebElement timingSelectElement = medCard.findElement(By.xpath(".//label[contains(text(),'Dosage Timing')]/following::select[1]"));
         Select timingSelect = new Select(timingSelectElement);
         timingSelect.selectByVisibleText(timing);
 
-        WebElement durationInput = medCard.findElement(By.xpath("//label[contains(text(),'Duration')]/following::input"));
+        WebElement durationInput = medCard.findElement(By.xpath(".//label[contains(text(),'Duration')]/following::input[@type='number'][1]"));
         durationInput.clear();
         durationInput.sendKeys(duration);
 
-        WebElement startDateInput = medCard.findElement(By.xpath("//label[contains(text(),'Start Date')]/following::input"));
+        WebElement startDateInput = medCard.findElement(By.xpath(".//label[contains(text(),'Start Date')]/following::input[@type='date'][1]"));
         Assert.assertTrue("Start date field is not displayed", startDateInput.isDisplayed());
     }
 
