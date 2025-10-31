@@ -4,7 +4,7 @@ Feature: Smoke Test for Patient Dashboard
   Background:
     Given user is on the landing Pages
     When user clicks the login_signup buttons
-    When user enter usernam "patient" and "patient123"
+    When user enter usernam "patient123" and "patient1234"
     And clicks the login buttons
     Then the user should see the messages "Medical Consultation"
 
