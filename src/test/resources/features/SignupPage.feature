@@ -22,8 +22,8 @@ Feature: Smoke testing for Login page
     Then the user should redirected to the LoginPage1
 
     Examples:
-      | username   | email                 | role      | password    | confirm_password   |
-      | patient22  | patient22@gmail.com   | Patient   | patient22   | patient22          |
+      | username  | email               | role    | password  | confirm_password |
+      | patient22 | patient22@gmail.com | Patient | patient22 | patient22        |
 
   Scenario Outline: The doctor registers
 
