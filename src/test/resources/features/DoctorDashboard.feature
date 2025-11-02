@@ -21,5 +21,4 @@ Feature: Doctor Dashboard Prescription Workflow
     And the Doctor clicks the "Send Prescription" button
     # Then: Expected outcomes
     Then a success message "✅ Prescription sent successfully!" should be displayed
-#    And the Patient Message should no longer be visible on the dashboard
-#    And the prescription form should be reset to its initial state
+

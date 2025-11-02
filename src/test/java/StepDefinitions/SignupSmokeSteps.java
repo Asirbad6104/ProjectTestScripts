@@ -31,7 +31,7 @@ public class SignupSmokeSteps extends BasePage {
         }
 
         @Then("user clicks on the Sign_Up button")
-        public void user_clicks_on_the_sign_up_button(){signupPage.clicks_signupButton();}
+        public void user_clicks_on_the_sign_up_button(){signupPage.clickSignupButton();}
 
         @Then("user should redirected to the Sign_Up page")
         public void userShouldRedirectedToTheSign_UpPage() {
@@ -87,7 +87,7 @@ public class SignupSmokeSteps extends BasePage {
 
         @And("clicks the Create Account Button")
         public void clicks_the_Create_Account_Button(){
-            signupPage.clicks_createAccountButton();
+            signupPage.clickCreateAccountButton();
             System.out.println("Current URL after registration: " + DriverManager.get().getCurrentUrl());
         }
 

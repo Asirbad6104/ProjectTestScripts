@@ -8,6 +8,7 @@ public class PatientService extends BaseTest {
     public Response getPrescriptions(String token) {
         Response response = RestAssured
                 .given(requestSpecification)
+                .relaxedHTTPSValidation()
                 .header("Authorization", "Bearer " + token)
                 .get("/prescriptions");
 
