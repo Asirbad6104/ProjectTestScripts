@@ -101,4 +101,7 @@ public class DoctorDashboardPage extends BasePage {
     public boolean isDiagnosisFieldEmpty() {
         return DriverManager.get().findElement(diagnosisField).getAttribute("value").isEmpty();
     }
+
+
+
 }

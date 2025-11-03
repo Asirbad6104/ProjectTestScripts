@@ -16,10 +16,10 @@ Feature: Smoke testing for Login page
       Then the user should see the message "<expectedMessage>"
 
       Examples:
-        | username | password       | expectedMessage                        |
-        | patient123    | patient1234        | Medical Consultation                   |
-        | patient     | kkk1234        | Invalid credentials. Please try again. |
-        | doctor       | doctor123          | Status:                                |
+        | username | password   | expectedMessage                        |
+        | patient  | patient123 | Medical Consultation                   |
+        | patient  | kkk1234    | Invalid credentials. Please try again. |
+        | doctor   | doctor123  | Status:                                |
 
 
 #  Scenario: Verify navigation from Login to Register page

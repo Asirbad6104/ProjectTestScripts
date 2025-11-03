@@ -64,4 +64,6 @@ public class PatientForm extends BasePage {
         String expectedMessage = "Medical Consultation";
         return actualMessage.contains(expectedMessage);
     }
+
+
 }

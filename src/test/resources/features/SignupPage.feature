@@ -3,7 +3,7 @@ Feature: Smoke testing for Login page
 
   Background:
     Given user is on the landing Page1
-    When user clicks the login_signup button1
+    When user clicks the login_signup button sign_up
     Then user clicks on the Sign_Up button
 
   Scenario: Verify LoginPage is redirecting to SignUp Page
@@ -22,8 +22,8 @@ Feature: Smoke testing for Login page
     Then the user should redirected to the LoginPage1
 
     Examples:
-      | username   | email                 | role      | password    | confirm_password   |
-      | patient22  | patient22@gmail.com   | Patient   | patient22   | patient22          |
+      | username  | email               | role    | password  | confirm_password |
+      | patient22 | patient22@gmail.com | Patient | patient22 | patient22        |
 
   Scenario Outline: The doctor registers
 
