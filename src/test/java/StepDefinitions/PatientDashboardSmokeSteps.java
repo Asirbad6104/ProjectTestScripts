@@ -47,8 +47,7 @@ public class PatientDashboardSmokeSteps {
 
     @Then("user fills the consultation form with {string}, {string}, {string}, {string}, and {string}" )
     public void user_fills_the_consultation_form(String fname , String age , String specialist , String level , String Description) {
-
-        patientForm.filling_Form(fname, age, specialist, level, Description);
+        patientForm.fillForm(fname, age, specialist, level, Description);
     }
 
     @And("clicks the send button")
@@ -59,7 +58,7 @@ public class PatientDashboardSmokeSteps {
     @Then("successful pop-up should appear")
     public void successful_popup_should_appear() {
 
-        Assert.assertTrue(patientForm.verifySendOrNOt());
+        Assert.assertTrue(patientForm.verifySendOrNot());
 
     }
 
@@ -70,7 +69,6 @@ public class PatientDashboardSmokeSteps {
         medicationReminder.clickOnReminder();
 
         Assert.assertTrue(medicationReminder.verifyReminderPage());
-
     }
     @And("clicks on Mark as taken button")
     public void clicks_on_Mark_as_taken_button() {
