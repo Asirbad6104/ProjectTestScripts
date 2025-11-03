@@ -6,8 +6,7 @@ import org.openqa.selenium.WebDriver;
 public class DriverManager {
     private static final ThreadLocal<RemoteWebDriver> TL = new ThreadLocal<>();
 
-    private DriverManager() {
-    }
+    private DriverManager() {}
 
     public static void set(RemoteWebDriver driver) {
         TL.set(driver);

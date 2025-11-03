@@ -22,8 +22,8 @@ Feature: Smoke testing for Login page
     Then the user should redirected to the LoginPage1
 
     Examples:
-      | username   | email                 | role      | password    | confirm_password   |
-      | patient22  | patient22@gmail.com   | Patient   | patient22   | patient22          |
+      | username  | email               | role    | password  | confirm_password |
+      | patient23 | patient23@gmail.com | Patient | patient23 | patient23        |
 
   Scenario Outline: The doctor registers
 
@@ -38,4 +38,4 @@ Feature: Smoke testing for Login page
 
     Examples:
       | username   | email                 | role      | specialization   |password    | confirm_password   |
-      | doctor7    | doctor7@gmail.com     | Doctor    | Cardiologist     |doctor7     | doctor7            |
+      | doctor78   | doctor78@gmail.com     | Doctor    | Cardiologist     |doctor78   | doctor78           |
