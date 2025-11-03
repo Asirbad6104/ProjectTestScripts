@@ -20,9 +20,9 @@ public class DriverFactory {
 
     private static RemoteWebDriver createChrome(boolean headless){
         ChromeOptions opts = new ChromeOptions();
-//        if (System.getenv("HEADFUL")==null) {
-//            opts.addArguments("--headless=new","--no-sandbox","--disable-dev-shm-usage");
-//        }
+        if (System.getenv("HEADFUL")==null) {
+            opts.addArguments("--headless=new","--no-sandbox","--disable-dev-shm-usage");
+        }
         return new ChromeDriver(opts);
     }
 

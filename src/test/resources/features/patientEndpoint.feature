@@ -1,8 +1,11 @@
-Feature: Prescription Retrieval
+Feature: Submit Consultation Form
 
-  Scenario: Patient retrieves prescriptions with valid credentials
+  Scenario: Submit consultation form
     Given the user login credentials are provided for prescription access
       | username | patient    |
       | password | patient123 |
-    When the user sends a request to get prescriptions
-    Then the user should receive a list of prescriptions
+    When the user submits the consultation form with details
+      | specialist  | Cardiologist |
+      | level       | LOW          |
+      | description | TestRest     |
+    Then the user should receive a confirmation for consultation
