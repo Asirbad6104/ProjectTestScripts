@@ -35,4 +35,14 @@ public class BaseTest {
                 .then().log().all()
                 .extract().response();
     }
+
+    protected Response doDelete(String endpoint) {
+        return RestAssured
+                .given(requestSpecification)
+                .log().all()
+                .when()
+                .delete(endpoint)
+                .then().log().all()
+                .extract().response();
+    }
 }

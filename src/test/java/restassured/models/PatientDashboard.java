@@ -1,23 +1,17 @@
 package restassured.models;
 
+
 public class PatientDashboard {
+    private String diseaseType;
+    private String content;
+    private String severity;
 
-    private Long id;
-    private String medicine;
-    private String dosage;
-    private String instructions;
+    public String getDiseaseType() { return diseaseType; }
+    public void setDiseaseType(String diseaseType) { this.diseaseType = diseaseType; }
 
-    // Getters and setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public String getContent() { return content; }
+    public void setContent(String content) { this.content = content; }
 
-    public String getMedicine() { return medicine; }
-    public void setMedicine(String medicine) { this.medicine = medicine; }
-
-    public String getDosage() { return dosage; }
-    public void setDosage(String dosage) { this.dosage = dosage; }
-
-    public String getInstructions() { return instructions; }
-    public void setInstructions(String instructions) { this.instructions = instructions; }
-
+    public String getSeverity() { return severity; }
+    public void setSeverity(String severity) { this.severity = severity; }
 }
