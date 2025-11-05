@@ -9,20 +9,27 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 public class DriverFactory {
     private DriverFactory(){}
 
-    public static RemoteWebDriver newDriver(String browser, boolean headless){
-        return switch (browser.toLowerCase()){
-            case "chrome" -> createChrome(headless);
-            case "firefox" -> createFirefox(headless);
-            case "edge" -> createEdge(headless);
-            default -> throw new IllegalArgumentException("Unsupported browser: " + browser);
-        };
+    public static RemoteWebDriver newDriver(String browser, boolean headless, ChromeOptions options) {
+        if (browser.equalsIgnoreCase("chrome")) {
+            if (headless) {
+                options.addArguments("--headless=new");
+                options.addArguments("--window-size=1920,1080"); // Helps with rendering
+                options.addArguments("--disable-gpu"); // Optional, useful on Linux
+                options.addArguments("--no-sandbox");
+                options.addArguments("--disable-dev-shm-usage");
+            }
+            return new ChromeDriver(options);
+        }
+
+        throw new IllegalArgumentException("Unsupported browser: " + browser);
     }
+
 
     private static RemoteWebDriver createChrome(boolean headless){
         ChromeOptions opts = new ChromeOptions();
-//        if (System.getenv("HEADFUL")==null) {
-//            opts.addArguments("--headless=new","--no-sandbox","--disable-dev-shm-usage");
-//        }
+        if (System.getenv("HEADFUL")==null) {
+            opts.addArguments("--headless=new","--no-sandbox","--disable-dev-shm-usage");
+        }
         return new ChromeDriver(opts);
     }
 
