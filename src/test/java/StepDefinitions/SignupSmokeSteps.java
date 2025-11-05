@@ -25,7 +25,7 @@ public class SignupSmokeSteps extends BasePage {
             signupPage = new SignupPage();
         }
 
-        @When("user clicks the login_signup button1")
+        @When("user clicks the login_signup button sign_up")
         public void user_clicks_the_login_signup_button1() {
             loginPage.click_loginSignUpButton();
         }

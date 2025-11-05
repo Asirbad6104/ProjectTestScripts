@@ -17,9 +17,9 @@ Feature: Smoke testing for Login page
 
       Examples:
         | username | password   | expectedMessage                        |
-        | ioi      | ioi123     | Medical Consultation                   |
-        | kkk      | kkk1234    | Invalid credentials. Please try again. |
-        | doc1     | doc123     | Status:                                |
+        | patient123 | patient1234     | Medical Consultation                   |
+        | patient12  | patient1234    | Invalid credentials. Please try again. |
+        | doctor     | doctor123     | Status:                                |
 
 
 #  Scenario: Verify navigation from Login to Register page

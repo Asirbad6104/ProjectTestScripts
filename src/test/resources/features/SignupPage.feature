@@ -3,7 +3,7 @@ Feature: Smoke testing for Login page
 
   Background:
     Given user is on the landing Page1
-    When user clicks the login_signup button1
+    When user clicks the login_signup button sign_up
     Then user clicks on the Sign_Up button
 
   Scenario: Verify LoginPage is redirecting to SignUp Page
