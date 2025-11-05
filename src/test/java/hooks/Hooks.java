@@ -21,27 +21,24 @@ public class Hooks {
 
     @Before
     public void setup() {
-        RemoteWebDriver driver = DriverFactory.newDriver(Config.browser(), Config.headless());
-        DriverManager.set(driver);
-        DriverManager.get().manage().window().maximize();
-
-        // Navigate to the base URL using Config
-        DriverManager.get().get(Config.baseUrl());
-
         ChromeOptions options = new ChromeOptions();
         Map<String, Object> chromePrefs = new HashMap<>();
 
-        // Disable Chrome "change your password" popup and password manager
         chromePrefs.put("credentials_enable_service", false);
         chromePrefs.put("profile.password_manager_enabled", false);
         chromePrefs.put("profile.password_manager_leak_detection", false);
         options.setExperimentalOption("prefs", chromePrefs);
 
-        // Optional: disable Chrome info bars and extensions
         options.addArguments("--disable-infobars");
         options.addArguments("--disable-extensions");
         options.addArguments("--disable-notifications");
 
+        RemoteWebDriver driver = DriverFactory.newDriver(Config.browser(), Config.headless(), options);
+        DriverManager.set(driver);
+        if (!Config.headless()) {
+            DriverManager.get().manage().window().maximize();
+        }
+        DriverManager.get().get(Config.baseUrl());
     }
 
     @After

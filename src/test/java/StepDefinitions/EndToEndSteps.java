@@ -100,7 +100,7 @@ public class EndToEndSteps extends BasePage{
 
 
         loginPage.isOnLandingPage();
-        loginPage.login("doctor999", "doctor999");
+        loginPage.login("doctor", "doctor123");
         loginPage.clickLoginButton();
 
         Assert.assertTrue("Failed to verify Doctor Dashboard presence after login.", loginPage.verifyDashboard("Status:"));
