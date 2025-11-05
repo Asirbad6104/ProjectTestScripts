@@ -8,6 +8,8 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class EndToEnd extends BasePage {
@@ -38,6 +40,7 @@ public class EndToEnd extends BasePage {
     private final By lastPrescription = By.cssSelector("div[class='prescription-list']>:last-child");
     private final By lastPrescriptionDate = By.cssSelector("div[class='prescription-list']>:last-child>div[class='prescription-header']>div[class='prescription-date']");
     private final By backToDashboardButton = By.xpath("//span[text()='Back to Dashboard']");
+    private final By patientPrescription = By.xpath(" //div[@class='prescription-list']");
 
     public EndToEnd() {
     }
@@ -65,21 +68,29 @@ public class EndToEnd extends BasePage {
         return actualMessage.contains(expectedMessage);
     }
 
-    public boolean verifyLastPrescriptionDate(){
-        // Wait for the card to be clickable, then click it
-//        click(webWait().until(ExpectedConditions.elementToBeClickable(lastPrescription)));
-
-        // Wait for the form element to appear on the new screen
-        webWait().until(ExpectedConditions.visibilityOfElementLocated(lastPrescription));
-
-        String actualMessage = DriverManager.get().findElement(lastPrescriptionDate).getText().trim();
-        String expectedMessage = "Nov 3, 2025";
-        return actualMessage.equals(expectedMessage);
-    }
 
     public void click_backToDashboardButton(){
         // Ensure the button is clickable before attempting to click
         click(webWait().until(ExpectedConditions.elementToBeClickable(backToDashboardButton)));
     }
 
+    public boolean validatePrescription(String arg0, String arg1) {
+        List<WebElement> lists = DriverManager.get().findElements(patientPrescription);
+        int index = 0;
+        for(WebElement list : lists){
+            String date = DriverManager.get().findElement(By.xpath("//div[@class='prescription-date']")).getText().trim();
+            String todayDate = LocalDate.now().format(DateTimeFormatter.ofPattern("MMM d, yyyy"));
+            if(date.equals(todayDate)) {
+                List<WebElement> l = DriverManager.get().findElements(By.xpath("//h6"));
+                if(l.size()==2 && l.get(0).getText().equals(arg0) && l.get(1).getText().equals(arg1)){
+                    break;
+                }
+                index++;
+            }
+        }
+        if(index < lists.size()){
+            return true;
+        }
+        return false;
+    }
 }

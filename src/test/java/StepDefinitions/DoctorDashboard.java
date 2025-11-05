@@ -29,7 +29,7 @@ public class DoctorDashboard extends  BasePage{
         loginPage.click_loginSignUpButton();
 
         loginPage.isOnLandingPage();
-        loginPage.login("doc1", "doc123");
+        loginPage.login("doctor", "doctor123");
         loginPage.clickLoginButton();
 
         Assert.assertTrue("Failed to verify Doctor Dashboard presence after login.", loginPage.verifyDashboard("Status:"));

@@ -65,7 +65,7 @@ public class EndToEndSteps extends BasePage{
     @Then("user fills the consultation form with2 {string}, {string}, {string}, {string}, and {string}" )
     public void user_fills_the_consultation_form(String fname , String age , String specialist , String level , String Description) {
 
-        patientForm.filling_Form(fname, age, specialist, level, Description);
+        patientForm.fillForm(fname, age, specialist, level, Description);
     }
 
     @And("clicks the send button2")
@@ -76,7 +76,7 @@ public class EndToEndSteps extends BasePage{
     @Then("successful pop-up should appear2")
     public void successful_popup_should_appear() {
 
-        Assert.assertTrue(patientForm.verifySendOrNOt());
+        Assert.assertTrue(patientForm.verifySendOrNot());
     }
 
     @And("clicks the logout button in the patient dashboard")
@@ -97,6 +97,7 @@ public class EndToEndSteps extends BasePage{
         // Explicitly wait for the initial button to be clickable before clicking
         webWait().until(ExpectedConditions.elementToBeClickable(By.xpath("//a[@href='/auth']")));
         loginPage.click_loginSignUpButton();
+
 
         loginPage.isOnLandingPage();
         loginPage.login("doctor999", "doctor999");
@@ -169,11 +170,11 @@ public class EndToEndSteps extends BasePage{
         Assert.assertTrue(endToEnd.verifyMyPrescriptions());
     }
 
-    @When("the Doctor views the last prescription and verifies the date as today's date")
-    public void theDoctorViewsTheLastPrescriptionAndVerifiesTheDateAsTodaySDate() {
-        // Write code here that turns the phrase above into concrete actions
-        Assert.assertTrue(endToEnd.verifyLastPrescriptionDate());
-    }
+//    @When("the Doctor views the last prescription and verifies the date as today's date")
+//    public void theDoctorViewsTheLastPrescriptionAndVerifiesTheDateAsTodaySDate() {
+//        // Write code here that turns the phrase above into concrete actions
+//        Assert.assertTrue(endToEnd.verifyLastPrescriptionDate());
+//    }
 
 
     @And("clicks on the Back to Dashboard button")
@@ -193,5 +194,11 @@ public class EndToEndSteps extends BasePage{
     public void userClicksTheLogin_signupButton(int arg0) {
         // Write code here that turns the phrase above into concrete actions
         loginPage.click_loginSignUpButton();
+    }
+
+    @When("the patient should see the medicines {string} and {string} and date should be today's date")
+    public void thePatientShouldSeeTheMedicinesAndAndDateShouldBeTodaySDate(String arg0, String arg1) {
+        // Write code here that turns the phrase above into concrete actions
+       Assert.assertTrue(endToEnd.validatePrescription(arg0, arg1));
     }
 }
